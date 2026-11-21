@@ -65,12 +65,13 @@ export default function Request() {
     <section className="mx-auto max-w-md">
       <h1 className="mb-6 text-2xl font-semibold">Request Certificate</h1>
       <form onSubmit={handleSubmit} noValidate className="space-y-4 rounded-lg border border-line bg-white p-6">
-        <FormInput label="Name" name="name" value={form.name} onChange={handleChange} error={errors.name} placeholder="Full name" />
+        <FormInput label="Name" name="name" autoComplete="name" value={form.name} onChange={handleChange} error={errors.name} placeholder="Full name" />
 
-        <FormInput label="Phone" name="phone" type="tel" inputMode="numeric" value={form.phone} onChange={handleChange} error={errors.phone} placeholder="10-digit number" />
+        <FormInput label="Phone" name="phone" type="tel" autoComplete="tel" inputMode="numeric" value={form.phone} onChange={handleChange} error={errors.phone} placeholder="10-digit number" />
 
+        {/* Gender is a radio group, so its label has no single input to point at */}
         <FormInput label="Gender" name="gender" error={errors.gender}>
-          <div className="flex gap-5">
+          <div className="flex gap-5" role="radiogroup" aria-label="Gender">
             {["Male", "Female", "Other"].map((g) => (
               <label key={g} className="flex items-center gap-2">
                 <input type="radio" name="gender" value={g} checked={form.gender === g} onChange={handleChange} className="accent-brand" />
@@ -80,12 +81,13 @@ export default function Request() {
           </div>
         </FormInput>
 
-        <FormInput label="City" name="city" value={form.city} onChange={handleChange} error={errors.city} placeholder="City" />
+        <FormInput label="City" name="city" autoComplete="address-level2" value={form.city} onChange={handleChange} error={errors.city} placeholder="City" />
 
-        <FormInput label="State" name="state" error={errors.state}>
+        <FormInput label="State" name="state" htmlFor="state" error={errors.state}>
           <select
             id="state"
             name="state"
+            autoComplete="address-level1"
             value={form.state}
             onChange={handleChange}
             className={`w-full rounded border bg-white px-3 py-2 outline-none focus:ring-2 focus:ring-brand/40 ${errors.state ? "border-red-500" : "border-line"}`}
